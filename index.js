@@ -3,6 +3,8 @@ const routes = require('./routes');
 const path = require('path');
 
 const app = express();
+
+app.use(express.static('public'));
 app.set('view engine', 'pug'); // register the template engine
 app.set('views', path.join(__dirname, './views')); // specify the views directory
 
