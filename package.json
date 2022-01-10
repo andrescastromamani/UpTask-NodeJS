@@ -1,0 +1,17 @@
+{
+  "name": "uptask",
+  "version": "1.0.0",
+  "description": "Project UpTask with NodeJS and MVC",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./index.js"
+  },
+  "author": "Andres Castro Mamani",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
