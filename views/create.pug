@@ -1,0 +1,18 @@
+extends layout 
+
+block content 
+    .main-content 
+        h1 #{nameProject}
+
+        if errors 
+            each error in errors 
+                .alert.error= error.msg
+        form.add-project(action="/new-project" method="post")
+            .field 
+                label(for="name") Name
+                input(type="text" name="name" id="name" placeholder="Name")
+            .field
+                label(for="description") Description
+                input(type="text" name="description" id="description" placeholder="Description")
+            .field.send
+                input(type="submit" value="Create" class="button")  

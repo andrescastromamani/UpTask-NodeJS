@@ -9,18 +9,18 @@ html(lang="en")
         link(rel="stylesheet" href="/css/normalize.css")
         title #{nameProject} 
     body 
-        header.barra
+        header.bar
             h1 UpTask-Project Administrator
             a(href="#") Logout 
 
-        main.contenedor 
-            aside.contenedor-proyectos
-                .panel.crear-proyecto
-                    a(href="" class="boton") New Project 
+        main.content 
+            aside.project-container
+                .panel.create-project
+                    a(href="/new-project" class="button") New Project 
                         span +
-                .panel.lista-proyectos 
+                .panel.project-list 
                     h2 Projects 
-                    ul#proyectos.proyectos
+                    ul#projects.projects
                         li 
                             a(href="") Design 
                         li 
