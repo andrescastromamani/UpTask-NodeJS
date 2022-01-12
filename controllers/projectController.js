@@ -1,3 +1,5 @@
+const Project = require('../models/Project');
+
 exports.index = (req, res) => {
     res.render('index', {
         nameProject: 'UpTask'
@@ -10,7 +12,7 @@ exports.create = (req, res) => {
     })
 }
 
-exports.store = (req, res) => {
+exports.store = async (req, res) => {
     const { name, description } = req.body;
     let errors = [];
     if (!name || !description) {
@@ -22,6 +24,10 @@ exports.store = (req, res) => {
             errors
         });
     } else {
-        res.send('Success');
+        const project = Project.create({
+            name,
+            description
+        });
+        res.redirect('/');
     }
 }
