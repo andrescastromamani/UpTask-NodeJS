@@ -24,6 +24,7 @@ exports.store = async (req, res) => {
             errors
         });
     } else {
+        //const slugName = slug(name).toLowerCase();
         const project = Project.create({
             name,
             description
