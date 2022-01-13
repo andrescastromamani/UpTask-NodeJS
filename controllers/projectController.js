@@ -38,16 +38,57 @@ exports.store = async (req, res) => {
         res.redirect('/');
     }
 }
-exports.show = async (req, res) => {
+exports.show = async (req, res, next) => {
     const projects = await Project.findAll();
     const project = await Project.findOne({
         where: {
             url: req.params.url
         }
     });
+    if (!project) return next();
     res.render('show', {
-        nameProject: 'UpTask - Show',
+        nameProject: 'UpTask - Task',
         project,
         projects
     })
+}
+exports.edit = async (req, res) => {
+    const projects = await Project.findAll();
+    const project = await Project.findOne({
+        where: {
+            id: req.params.id
+        }
+    });
+    res.render('create', {
+        nameProject: 'UpTask - Edit',
+        projects,
+        project
+    })
+}
+exports.update = async (req, res) => {
+    const projects = await Project.findAll();
+    const { name, description } = req.body;
+    let errors = [];
+    if (!name || !description) {
+        errors.push({ 'msg': 'Please enter all fields' });
+    }
+    if (errors.length > 0) {
+        res.render('create', {
+            nameProject: 'UpTask - Create',
+            errors,
+            projects
+        });
+    } else {
+        //const slugName = slug(name).toLowerCase();
+        await Project.update(
+            {
+                name,
+                description
+            }, {
+            where: {
+                id: req.params.id
+            }
+        });
+        res.redirect('/');
+    }
 }

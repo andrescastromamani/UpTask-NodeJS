@@ -4,3 +4,6 @@ block content
     .main-content 
         h1 #{nameProject}
         h2 #{project.name}
+        .actions-container  
+            a(href=`/project/edit/${project.id}` class="button") Edit Project
+            button#delete-project(type="button" class="button delete") Delete Project

@@ -1,0 +1,11 @@
+mixin form(project = {})
+
+    form.add-project(action=`/new-project/${project.id || ''}` method="post")
+        .field 
+            label(for="name") Name
+            input(type="text" name="name" id="name" placeholder="Name" value=project.name)
+        .field
+            label(for="description") Description
+            input(type="text" name="description" id="description" placeholder="Description" value=project.description)
+        .field.send
+            input(type="submit" value=`${project.name ? 'Save' : 'Add' }  ` class="button")  
