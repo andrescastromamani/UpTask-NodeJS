@@ -14,5 +14,6 @@ module.exports = function () {
         body('description').not().isEmpty().trim().escape().withMessage('Description is required'),
         projectController.store
     );
+    router.get('/projects/:url', projectController.show);
     return router;
 }

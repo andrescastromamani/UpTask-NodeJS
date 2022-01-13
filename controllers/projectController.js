@@ -8,13 +8,16 @@ exports.index = async (req, res) => {
     })
 }
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
+    const projects = await Project.findAll();
     res.render('create', {
-        nameProject: 'UpTask - Create'
+        nameProject: 'UpTask - Create',
+        projects
     })
 }
 
 exports.store = async (req, res) => {
+    const projects = await Project.findAll();
     const { name, description } = req.body;
     let errors = [];
     if (!name || !description) {
@@ -33,4 +36,17 @@ exports.store = async (req, res) => {
         });
         res.redirect('/');
     }
+}
+exports.show = async (req, res) => {
+    const projects = await Project.findAll();
+    const project = await Project.findOne({
+        where: {
+            url: req.params.url
+        }
+    });
+    res.render('show', {
+        nameProject: 'UpTask - Show',
+        project,
+        projects
+    })
 }
