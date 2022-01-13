@@ -1,8 +1,10 @@
 const Project = require('../models/Project');
 
-exports.index = (req, res) => {
+exports.index = async (req, res) => {
+    const projects = await Project.findAll();
     res.render('index', {
-        nameProject: 'UpTask'
+        nameProject: 'UpTask',
+        projects
     })
 }
 

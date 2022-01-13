@@ -1,7 +1,9 @@
 const express = require('express');
-const routes = require('./routes');
 const path = require('path');
 const bodyParser = require('body-parser');
+
+const routes = require('./routes');
+const helpers = require('./helpers/helpers');
 
 //db connection
 const db = require('./config/db');
@@ -16,6 +18,11 @@ app.use(express.static('public'));
 app.set('view engine', 'pug'); // register the template engine
 app.set('views', path.join(__dirname, './views')); // specify the views directory
 
+//vardump
+app.use((req, res, next) => {
+    res.locals.vardump = helpers.vardump;
+    next();
+});
 //Enable Body Parser for POST requests
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', routes());
