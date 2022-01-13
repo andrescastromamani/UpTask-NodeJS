@@ -26,7 +26,8 @@ exports.store = async (req, res) => {
     if (errors.length > 0) {
         res.render('create', {
             nameProject: 'UpTask - Create',
-            errors
+            errors,
+            projects
         });
     } else {
         //const slugName = slug(name).toLowerCase();
