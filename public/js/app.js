@@ -1,1 +1,1 @@
-alert('hola desde appjs updated');
+import projects from './modules/projects';

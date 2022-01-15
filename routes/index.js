@@ -21,5 +21,6 @@ module.exports = function () {
         body('description').not().isEmpty().trim().escape().withMessage('Description is required'),
         projectController.update
     );
+    router.delete('/projects/:url', projectController.destroy);
     return router;
 }

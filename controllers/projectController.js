@@ -92,3 +92,14 @@ exports.update = async (req, res) => {
         res.redirect('/');
     }
 }
+
+exports.destroy = async (req, res, next) => {
+    const urlProject = req.params.url;
+    console.log(urlProject);
+    await Project.destroy({
+        where: {
+            url: urlProject
+        }
+    });
+    res.status(200).send('Project deleted');
+}
