@@ -21,3 +21,21 @@ exports.store = async (req, res, next) => {
     //redirect
     res.redirect(`/projects/${req.params.url}`);
 }
+exports.update = async (req, res, next) => {
+    const { id } = req.params;
+    const task = await Task.findOne({
+        where: {
+            id
+        }
+    });
+    if (task.status == 0) {
+        task.status = 1;
+    } else {
+        task.status = 0;
+    }
+    const result = await task.save();
+    if (!result) {
+        return next();
+    }
+    res.status(200).send('update task');
+}

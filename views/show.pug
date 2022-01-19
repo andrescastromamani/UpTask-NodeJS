@@ -14,7 +14,7 @@ block content
             ul 
                 if tasks.length 
                     each task in tasks 
-                        li.task
+                        li.task(data-id=`${task.id}`)
                             p= task.title 
                             .actions 
                                 if task.status == 0 
