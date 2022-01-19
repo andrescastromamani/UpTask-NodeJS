@@ -1,4 +1,5 @@
 const Project = require('../models/Project');
+const Task = require('../models/Task');
 
 exports.index = async (req, res) => {
     const projects = await Project.findAll();
@@ -45,11 +46,24 @@ exports.show = async (req, res, next) => {
             url: req.params.url
         }
     });
+    //Get Task of the project
+    const tasks = await Task.findAll({
+        where: {
+            projectId: project.id
+        },
+        include: [
+            {
+                model: Project
+            }
+        ]
+    });
+
     if (!project) return next();
     res.render('show', {
         nameProject: 'UpTask - Task',
         project,
-        projects
+        projects,
+        tasks
     })
 }
 exports.edit = async (req, res) => {

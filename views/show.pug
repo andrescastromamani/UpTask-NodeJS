@@ -10,6 +10,20 @@ block content
                 input(type="text" name="task" id="task" placeholder="Name of task")
             .field.send 
                 input.button(type="submit" value="Add Task")
+        .slope-list 
+            ul 
+                if tasks.length 
+                    each task in tasks 
+                        li.task
+                            p= task.title 
+                            .actions 
+                                if task.status == 0 
+                                    i.far.fa-check-circle
+                                else 
+                                    i.far.fa-check-circle.full
+                                i.fas.fa-trash
+                else 
+                    p There are not tasks
         .actions-container  
             a(href=`/project/edit/${project.id}` class="button") Edit Project
             button#delete-project(data-url=project.url type="button" class="button delete") Delete Project
