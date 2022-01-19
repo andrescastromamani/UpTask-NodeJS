@@ -5,8 +5,10 @@ const router = express.Router();
 const { body } = require('express-validator');
 
 const projectController = require('../controllers/projectController')
+const taskController = require('../controllers/taskController')
 
 module.exports = function () {
+    //Projects
     router.get('/', projectController.index);
     router.get('/new-project', projectController.create);
     router.post('/new-project',
@@ -22,5 +24,9 @@ module.exports = function () {
         projectController.update
     );
     router.delete('/projects/:url', projectController.destroy);
+
+    //Tasks
+    router.post('/projects/:url', taskController.store);
+    
     return router;
 }

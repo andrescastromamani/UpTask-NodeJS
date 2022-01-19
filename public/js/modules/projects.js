@@ -25,9 +25,9 @@ if (btnDelete) {
                             'success'
                         )
                         //redirect to home
-                        /*setTimeout(function () {
+                        setTimeout(function () {
                             window.location.href = "/";
-                        }, 3000);*/
+                        }, 3000);
                     })
                     .catch(function (error) {
                         console.log(error);

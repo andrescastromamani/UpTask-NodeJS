@@ -8,6 +8,7 @@ const helpers = require('./helpers/helpers');
 //db connection
 const db = require('./config/db');
 require('./models/Project');
+require('./models/Task');
 db.sync()
     .then(() => console.log('Connection has been established successfully.'))
     .catch(err => console.error('Unable to connect to the database:', err));
