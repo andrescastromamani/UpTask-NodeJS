@@ -27,7 +27,7 @@ if (btnDelete) {
                         //redirect to home
                         setTimeout(function () {
                             window.location.href = "/";
-                        }, 3000);
+                        }, 1000);
                     })
                     .catch(function (error) {
                         console.log(error);

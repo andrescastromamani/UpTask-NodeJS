@@ -39,3 +39,17 @@ exports.update = async (req, res, next) => {
     }
     res.status(200).send('update task');
 }
+
+exports.destroy = async (req, res, next) => {
+    console.log(req.params);
+    const { id } = req.params;
+    const result = await Task.destroy({
+        where: {
+            id
+        }
+    });
+    if (!result) {
+        return next();
+    }
+    res.status(200).send('destroy task');
+}  
