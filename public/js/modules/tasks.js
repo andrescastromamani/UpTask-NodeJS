@@ -1,6 +1,8 @@
 const { default: axios } = require("axios");
 const Swal = require("sweetalert2");
 
+const { progressbar } = require("../functions/progressbar");
+
 const tasks = document.querySelector('.slope-list');
 if (tasks) {
     tasks.addEventListener('click', function (e) {
@@ -15,6 +17,7 @@ if (tasks) {
                 console.log(response);
                 if (response.status === 200) {
                     icon.classList.toggle('full');
+                    progressbar();
                 }
             }).catch(function (error) {
                 console.log(error);
@@ -40,6 +43,7 @@ if (tasks) {
                             console.log(response);
                             if (response.status === 200) {
                                 icon.parentElement.parentElement.remove();
+                                progressbar();
                             }
                             Swal.fire(
                                 'Deleted!',
