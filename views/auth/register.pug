@@ -1,0 +1,29 @@
+doctype html
+html(lang="en")
+  head
+    include ../partials/head
+  body.login
+    .form-container 
+      h1 Create your account in UpTask
+      //pre=vardump(name)
+      if locals.flash
+        .alerts
+          each category in Object.keys(locals.flash)
+            each error in flash[category]
+              .alert(class=`${category}`)
+                p= error
+      form#form.box.login-box(method="POST" action="/auth/register")
+        .field
+          label(for="name") Name
+          input#name(type="text" name="name" placeholder="Name" value=locals.name)
+        .field
+          label(for="email") Email
+          input#email(type="email" name="email" placeholder="Email" value=locals.email )
+        .field
+          label(for="password") Password
+          input#password(type="password" name="password" placeholder="Password" )
+        .field.send
+          input#submit(type="submit" value="Register" class="button")
+        .field
+          a(href="/auth/login") Already have an account?
+    script(src="/dist/bundle.js")

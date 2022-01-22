@@ -238,13 +238,11 @@ body.index {
     color: #00b762;
 }
 .alert {
-    padding: 0.5rem;
+    padding: 0.1rem;
     text-align: center;
-    font-size: 0.9rem;
-    font-weight: 900;
-    max-width: 300px;
+    font-size: 5px;
+    max-width: 500px;
     margin: 0 auto 1rem auto;
-    text-transform: uppercase;
 }
 .error {
     color: red !important;
