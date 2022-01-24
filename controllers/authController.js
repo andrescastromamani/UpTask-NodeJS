@@ -25,3 +25,10 @@ exports.store = async (req, res) => {
         })
     }
 }
+exports.login = (req, res) => {
+    const { error } = res.locals.flash;
+    res.render('auth/login', {
+        nameProject: 'UpTask - Login',
+        error: error
+    });
+}

@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser')
 
 const routes = require('./routes');
 const helpers = require('./helpers/helpers');
+const passport = require('./config/passport');
 
 //db connection
 const db = require('./config/db');
@@ -33,6 +34,9 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
+//passport
+app.use(passport.initialize());
+app.use(passport.session());
 //vardump
 app.use((req, res, next) => {
     res.locals.vardump = helpers.vardump;

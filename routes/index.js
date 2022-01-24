@@ -7,6 +7,7 @@ const { body } = require('express-validator');
 const projectController = require('../controllers/projectController')
 const taskController = require('../controllers/taskController')
 const authController = require('../controllers/authController')
+const authenticationController = require('../controllers/authenticationController')
 
 module.exports = function () {
     //Projects
@@ -34,6 +35,8 @@ module.exports = function () {
     //Authentication
     router.get('/auth/register', authController.register);
     router.post('/auth/register', authController.store);
+    router.get('/auth/login', authController.login);
+    router.post('/auth/login', authenticationController.auth);
 
     return router;
 }
