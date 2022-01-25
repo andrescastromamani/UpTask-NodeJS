@@ -2,6 +2,7 @@ const { Sequelize } = require('sequelize');
 const slug = require('slug');
 const shortid = require('shortid');
 const db = require('../config/db');
+const User = require('./User');
 
 const Project = db.define('projects', {
     id: {
@@ -26,4 +27,5 @@ const Project = db.define('projects', {
         }
     }
 });
+Project.belongsTo(User);
 module.exports = Project;

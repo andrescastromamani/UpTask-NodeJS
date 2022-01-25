@@ -2,7 +2,14 @@ const Project = require('../models/Project');
 const Task = require('../models/Task');
 
 exports.index = async (req, res) => {
-    const projects = await Project.findAll();
+    const userId = res.locals.user.id;
+    const projects = await Project.findAll(
+        {
+            where: {
+                userId
+            }
+        }
+    );
     res.render('index', {
         nameProject: 'UpTask',
         projects
@@ -10,7 +17,12 @@ exports.index = async (req, res) => {
 }
 
 exports.create = async (req, res) => {
-    const projects = await Project.findAll();
+    const userId = res.locals.user.id;
+    const projects = await Project.findAll({
+        where: {
+            userId
+        }
+    });
     res.render('create', {
         nameProject: 'UpTask - Create',
         projects
@@ -18,7 +30,12 @@ exports.create = async (req, res) => {
 }
 
 exports.store = async (req, res) => {
-    const projects = await Project.findAll();
+    const userId = res.locals.user.id;
+    const projects = await Project.findAll({
+        where: {
+            userId
+        }
+    });
     const { name, description } = req.body;
     let errors = [];
     if (!name || !description) {
@@ -32,18 +49,26 @@ exports.store = async (req, res) => {
         });
     } else {
         //const slugName = slug(name).toLowerCase();
+        const userId = res.locals.user.id;
         const project = Project.create({
             name,
-            description
+            description,
+            userId
         });
         res.redirect('/');
     }
 }
 exports.show = async (req, res, next) => {
-    const projects = await Project.findAll();
+    const userId = res.locals.user.id;
+    const projects = await Project.findAll({
+        where: {
+            userId
+        }
+    });
     const project = await Project.findOne({
         where: {
-            url: req.params.url
+            url: req.params.url,
+            userId
         }
     });
     //Get Task of the project
@@ -67,10 +92,16 @@ exports.show = async (req, res, next) => {
     })
 }
 exports.edit = async (req, res) => {
-    const projects = await Project.findAll();
+    const userId = res.locals.user.id;
+    const projects = await Project.findAll({
+        where: {
+            userId
+        }
+    });
     const project = await Project.findOne({
         where: {
-            id: req.params.id
+            id: req.params.id,
+            userId
         }
     });
     res.render('create', {
@@ -80,7 +111,12 @@ exports.edit = async (req, res) => {
     })
 }
 exports.update = async (req, res) => {
-    const projects = await Project.findAll();
+    const userId = res.locals.user.id;
+    const projects = await Project.findAll({
+        where: {
+            userId
+        }
+    });
     const { name, description } = req.body;
     let errors = [];
     if (!name || !description) {

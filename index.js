@@ -41,6 +41,7 @@ app.use(passport.session());
 app.use((req, res, next) => {
     res.locals.vardump = helpers.vardump;
     res.locals.flash = req.flash();
+    res.locals.user = req.user || null;
     next();
 });
 //Enable Body Parser for POST requests

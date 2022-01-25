@@ -13,7 +13,7 @@ exports.store = async (req, res) => {
             email,
             password
         });
-        res.redirect('/auth/login');
+        res.redirect('/');
     } catch (error) {
         req.flash('error', error.errors.map(error => error.message));
         res.render('auth/register', {
