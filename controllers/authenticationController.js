@@ -6,3 +6,16 @@ exports.auth = passport.authenticate('local', {
     failureFlash: true,
     badRequestMessage: 'the email and password are required'
 })
+
+exports.userAuth = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/auth/login');
+}
+
+exports.logout = (req, res) => {
+    //console.log(req.user);
+    req.logout();
+    res.redirect('/');
+}

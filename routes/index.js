@@ -11,32 +11,59 @@ const authenticationController = require('../controllers/authenticationControlle
 
 module.exports = function () {
     //Projects
-    router.get('/', projectController.index);
-    router.get('/new-project', projectController.create);
+    router.get('/',
+        authenticationController.userAuth,
+        projectController.index
+    );
+    router.get('/new-project',
+        authenticationController.userAuth,
+        projectController.create
+    );
     router.post('/new-project',
+        authenticationController.userAuth,
         body('name').not().isEmpty().trim().escape().withMessage('Name is required'),
         body('description').not().isEmpty().trim().escape().withMessage('Description is required'),
         projectController.store
     );
-    router.get('/projects/:url', projectController.show);
-    router.get('/project/edit/:id', projectController.edit);
+    router.get('/projects/:url',
+        authenticationController.userAuth,
+        projectController.show
+    );
+    router.get('/project/edit/:id',
+        authenticationController.userAuth,
+        projectController.edit
+    );
     router.post('/new-project/:id',
+        authenticationController.userAuth,
         body('name').not().isEmpty().trim().escape().withMessage('Name is required'),
         body('description').not().isEmpty().trim().escape().withMessage('Description is required'),
         projectController.update
     );
-    router.delete('/projects/:url', projectController.destroy);
+    router.delete('/projects/:url',
+        authenticationController.userAuth,
+        projectController.destroy
+    );
 
     //Tasks
-    router.post('/projects/:url', taskController.store);
-    router.patch('/tasks/:id', taskController.update);
-    router.delete('/tasks/:id', taskController.destroy);
+    router.post('/projects/:url',
+        authenticationController.userAuth,
+        taskController.store
+    );
+    router.patch('/tasks/:id',
+        authenticationController.userAuth,
+        taskController.update
+    );
+    router.delete('/tasks/:id',
+        authenticationController.userAuth,
+        taskController.destroy
+    );
 
     //Authentication
     router.get('/auth/register', authController.register);
     router.post('/auth/register', authController.store);
     router.get('/auth/login', authController.login);
     router.post('/auth/login', authenticationController.auth);
+    router.get('/auth/logout', authenticationController.logout);
 
     return router;
 }
