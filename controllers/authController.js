@@ -32,3 +32,9 @@ exports.login = (req, res) => {
         error: error
     });
 }
+
+exports.forgot = (req, res) => {
+    res.render('auth/forgot', {
+        nameProject: 'UpTask - Forgot'
+    });
+}
