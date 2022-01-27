@@ -6,6 +6,12 @@ html(lang="en")
     .form-container 
       h1 Forgot Password - UpTask
       p Please enter your email address and we will send you a link to reset your password.
+      if locals.flash
+        .alerts
+          each category in Object.keys(locals.flash)
+            each error in flash[category]
+              .alert(class=`${category}`)
+                p= error
       //pre=vardump(name)
       form#form.box.login-box(method="POST" action="/auth/forgot")
         .field
@@ -14,4 +20,4 @@ html(lang="en")
         .field.send
           input#submit(type="submit" value="Reset" class="button")
         .field.actions
-          a(href="/auth/register") Do you remember your password?
+          a(href="/auth/login") Do you remember your password?

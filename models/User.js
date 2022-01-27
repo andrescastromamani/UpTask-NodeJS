@@ -40,6 +40,12 @@ const User = db.define('users', {
                 msg: 'Password cannot be empty!'
             }
         }
+    },
+    token: {
+        type: Sequelize.STRING,
+    },
+    expired: {
+        type: Sequelize.DATE,
     }
 }, {
     hooks: {

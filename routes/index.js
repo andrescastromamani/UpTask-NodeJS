@@ -65,6 +65,8 @@ module.exports = function () {
     router.post('/auth/login', authenticationController.auth);
     router.get('/auth/logout', authenticationController.logout);
     router.get('/auth/forgot', authController.forgot);
+    router.post('/auth/forgot', authenticationController.sendToken);
+    router.get('/auth/forgot/:token', authenticationController.resetPassword);
 
     return router;
 }
