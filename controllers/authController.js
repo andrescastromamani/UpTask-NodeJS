@@ -38,3 +38,4 @@ exports.forgot = (req, res) => {
         nameProject: 'UpTask - Forgot'
     });
 }
+

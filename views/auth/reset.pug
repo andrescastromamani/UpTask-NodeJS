@@ -1,0 +1,21 @@
+doctype html
+html(lang="en")
+  head
+    include ../partials/head
+  body.login
+    .form-container 
+      h1 Reset Password - UpTask
+      p Please enter your new password
+      //pre=vardump(name)
+      if locals.flash
+        .alerts
+          each category in Object.keys(locals.flash)
+            each error in flash[category]
+              .alert(class=`${category}`)
+                p= error
+      form#form.box.login-box(method="POST")
+        .field
+          label(for="password") Email
+          input#password(type="password" name="password" placeholder="password")
+        .field.send
+          input#submit(type="submit" value="Reset Password" class="button")

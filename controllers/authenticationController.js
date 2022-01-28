@@ -1,7 +1,11 @@
 const passport = require('passport');
 const crypto = require('crypto');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+const bcrypt = require('bcrypt-nodejs');
 
 const User = require('../models/User');
+const { log } = require('console');
 
 exports.auth = passport.authenticate('local', {
     successRedirect: '/',
@@ -25,13 +29,8 @@ exports.logout = (req, res) => {
 
 exports.sendToken = async (req, res) => {
     const { email } = req.body;
-    const user = await User.findOne(
-        {
-            where: { email }
-        }
-    );
+    const user = await User.findOne({ where: { email } });
     if (!user) {
-        console.log('User not found');
         req.flash('error', 'User not found');
         res.redirect('/auth/forgot');
     }
@@ -39,7 +38,7 @@ exports.sendToken = async (req, res) => {
     user.token = crypto.randomBytes(20).toString('hex');
     user.expired = Date.now() + 3600000;
     await user.save();
-    const resetUrl = `http://${req.headers.host}/auth/forgot/${user.token}`;
+    res.redirect(`http://${req.headers.host}/auth/forgot/${user.token}`);
 }
 exports.resetPassword = async (req, res) => {
     const { token } = req.params;
@@ -48,5 +47,40 @@ exports.resetPassword = async (req, res) => {
             where: { token }
         }
     )
-    console.log(user);
+    if (!user) {
+        req.flash('error', 'Token invalid or expired');
+        res.redirect('/auth/forgot');
+    }
+    res.render('auth/reset', {
+        nameProject: 'UpTask - Reset Password',
+        token: token
+    });
+}
+exports.reset = async (req, res) => {
+    const { token } = req.params;
+    const { password } = req.body;
+    const user = await User.findOne({
+        where: {
+            token,
+            expired: {
+                [Op.gte]: Date.now()
+            }
+        }
+    });
+
+    //verify user exist
+    if (!user) {
+        req.flash('error', 'Token invalid or expired');
+        res.redirect('/auth/forgot');
+    }
+    if (password.length < 6) {
+        req.flash('error', 'Password must be at least 6 characters');
+        res.redirect(`/auth/forgot/${token}`);
+    }
+    user.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+    user.token = null;
+    user.expired = null;
+    await user.save();
+    req.flash('correct', 'Password changed successfully');
+    res.redirect('/auth/login');
 }

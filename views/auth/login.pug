@@ -10,6 +10,12 @@ html(lang="en")
         .alerts
           .alert.error
             p= error
+      if locals.flash
+        .alerts
+          each category in Object.keys(locals.flash)
+            each error in flash[category]
+              .alert(class=`${category}`)
+                p= error
       form#form.box.login-box(method="POST" action="/auth/login")
         .field
           label(for="email") Email
