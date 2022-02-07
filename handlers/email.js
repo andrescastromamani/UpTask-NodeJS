@@ -14,17 +14,20 @@ let transporter = nodemailer.createTransport({
         pass: emailConfig.auth.pass // generated ethereal password
     },
 });
-let generateHtml = () => {
-    return pug.renderFile('./views/emails/resetPassword.pug', {
-        name: 'John Doe'
-    });
+let generateHtml = (file, options = {}) => {
+    const html = pug.renderFile(`${__dirname}/../views/emails/${file}.pug`, options);
+    return juice(html);
 }
-// send mail with defined transport object
-let info = transporter.sendMail({
-    from: '"Fred Foo 👻" <foo@example.com>', // sender address
-    to: "bar@example.com, baz@example.com", // list of receivers
-    subject: "Hello ✔", // Subject line
-    text: "Hello world?", // plain text body
-    html: generateHtml(), // html body
-});
-transporter.sendMail(info);
+exports.send = async (options) => {
+    const html = generateHtml(options.file, options);
+    const text = htmlToText.fromString(html);
+    let info = {
+        from: '"UpTask " <info@uptask.com>', // sender address
+        to: options.user.email, // list of receivers
+        subject: options.subject, // Subject line
+        text,
+        html
+    };
+    const sendEmail = util.promisify(transporter.sendMail, transporter)
+    return sendEmail.call(transporter, info);
+}

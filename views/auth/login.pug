@@ -6,10 +6,6 @@ html(lang="en")
     .form-container 
       h1 Sign in - UpTask
       //pre=vardump(name)
-      if error
-        .alerts
-          .alert.error
-            p= error
       if locals.flash
         .alerts
           each category in Object.keys(locals.flash)
