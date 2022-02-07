@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
 const cookieParser = require('cookie-parser')
+require('dotenv').config();
 
 const routes = require('./routes');
 const helpers = require('./helpers/helpers');
@@ -47,6 +48,10 @@ app.use((req, res, next) => {
 //Enable Body Parser for POST requests
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', routes());
-app.listen(3000);
+const host = process.env.HOST || '0.0.0.0';
+const port = process.env.PORT || 3000;
+app.listen(port, host, () => {
+    console.log(`Server running at http://${host}:${port}/`);
+})
 
 require('./handlers/email');
