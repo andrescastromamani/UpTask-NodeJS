@@ -4,8 +4,9 @@
   "description": "Project UpTask with NodeJS and MVC",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./index.js",
-    "start": "concurrently \"npm run dev\" \"npm run watch\"",
+    "dev": "concurrently \"npm run development\" \"npm run watch\"",
+    "development": "nodemon ./index.js",
+    "start": "node ./index.js",
     "watch": "webpack --watch --mode development"
   },
   "author": "Andres Castro Mamani",
